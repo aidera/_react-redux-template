@@ -1,4 +1,4 @@
-import {Action, applyMiddleware, combineReducers, compose, createStore} from "redux"
+import {Action, applyMiddleware, combineReducers, createStore} from "redux"
 import thunkMiddleware, {ThunkAction} from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import appReducer from "./app-reducer"
@@ -7,7 +7,6 @@ import appReducer from "./app-reducer"
 
 const bindMiddleware = (middleware: Array<any>) => {
     if (process.env.NODE_ENV !== 'production') {
-        const { composeWithDevTools } = require('redux-devtools-extension')
         return composeWithDevTools(applyMiddleware(...middleware))
     }
     return applyMiddleware(...middleware)
