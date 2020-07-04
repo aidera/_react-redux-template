@@ -1,34 +1,50 @@
-@import ../../assets/styles/variables
+@import ../../assets/styles/_variables
 
-
-.fieldGroup
+.field
     position: relative
 
-    .simpleField
-        padding: 3px
-        border: 1px solid gray
-        resize: none
+    .inputContainer, .textareaContainer
+        position: relative
 
-    .maxLength
-        color: gray
-        font-size: 10px
-        font-weight: bolder
+        .maxLength
+            color: gray
+            font-size: 10px
+            font-weight: bolder
+            position: absolute
+            bottom: -15px
+            right: 0
+            &.error
+                color: $danger-color
+
+
+    .messageError
+        color: $danger-color
+        margin-top: 3px
+
+    .inputError
+        border-color: $danger-color
+
+    .withIcon
+        padding-right: 30px
+
+    .fieldIcon
         position: absolute
-        bottom: -20px
-        right: 0px
-        &.error
-            color: red
+        top: 50%
+        right: 10px
+        transform: translateY(-50%)
+        svg
+            width: 15px
+            height: 15px
 
-    .fieldError
-        color: red
-        font-size: $font-simple_small
-        font-weight: bolder
 
-    label
-        cursor: pointer
-        user-select: none
 
-    .checkboxInput
+    .inputGroup, .textareaGroup
+        label
+            display: block
+
+    .checkboxGroup
+        label
+            display: inline-block
         input
             display: inline-block
             margin-right: 5px

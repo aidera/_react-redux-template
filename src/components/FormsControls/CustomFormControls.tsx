@@ -1,157 +1,172 @@
-import React, {useEffect, useRef} from 'react'
-import s from './CustomFormControls.module.sass'
-import {Field, useField} from "formik"
-import cn from 'classnames'
-import autosize from "autosize"
+import React, { useEffect, useRef } from "react";
+import { Field, useField } from "formik";
+import cn from "classnames";
+import autosize from "autosize";
+import { BsLock, BsEnvelope, BsPerson } from "react-icons/bs";
+import s from "./CustomFormControls.module.sass";
 
+type PropsType = {
+  name: string;
+  fieldType: string;
+  label?: string;
+  maxLength?: number;
+  placeholder?: string;
+  type?: string;
+  icon?: "email" | "password" | "user";
+  onKeyDown?: (e: React.KeyboardEvent<HTMLElement>) => void;
+  autoFocus?: boolean;
+};
 
+const CustomField: React.FC<PropsType> = React.memo((props: PropsType) => {
+  const {
+    name,
+    label,
+    fieldType,
+    maxLength,
+    placeholder,
+    type,
+    icon,
+    onKeyDown,
+    autoFocus,
+  } = props;
 
-type CustomFieldType = {
-    name: string
-    fieldType: string
-    label?: string
-    maxLength?: number
-    placeholder?: string
-    type?: string
-    onKeyDown?: (e: React.KeyboardEvent<HTMLElement>) => void
-    autoFocus?: boolean
-}
+  const [field, { error, touched }] = useField(name);
 
-export const CustomField: React.FC<CustomFieldType> = React.memo(({
-            name,
-            label,
-            fieldType,
-            maxLength,
-            placeholder,
-            type,
-            onKeyDown,
-            autoFocus,
-}) => {
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-    const [field, {error, touched}] = useField(name)
-
-    const textareaRef = useRef<HTMLTextAreaElement>(null)
-
-
-    useEffect(() => {
-        if(textareaRef && textareaRef.current){
-            autosize(textareaRef.current)
-        }
-
-    })
-
-
-
-    const inputGroupSwitcher = () => {
-        switch (fieldType) {
-            case 'input':
-                return inputGroup()
-
-            case 'textarea':
-                return textareaGroup()
-
-            case 'checkbox':
-                return checkboxGroup()
-
-            default:
-                return inputGroup()
-        }
+  // Textarea autoresize
+  useEffect(() => {
+    if (textareaRef && textareaRef.current) {
+      autosize(textareaRef.current);
     }
+  });
 
-    const inputGroup = () => {
-        return (
-            <>
-                {!!label &&
-                    <label htmlFor={'form-'+name}>{label}</label>
-                }
+  const iconSwitcher = () => {
+    switch (icon) {
+      case "email":
+        return <BsEnvelope />;
 
-                <Field
-                    as='input'
-                    id={'form-'+name}
-                    className={s.simpleField}
-                    placeholder={placeholder}
-                    maxLength={maxLength}
-                    type={type}
-                    autoFocus={autoFocus}
+      case "password":
+        return <BsLock />;
 
-                    {...field}
-                />
+      case "user":
+        return <BsPerson />;
 
-                {maxLengthCounter(field.value.length, maxLength)}
-                {errorContainer(error, touched)}
-            </>
-        )
+      default:
+        return null;
     }
+  };
 
-    const textareaGroup = () => {
-        return (
-            <>
-                {!!label &&
-                    <label htmlFor={'form-'+name}>{label}</label>
-                }
-
-                <textarea
-                    id={'form-'+name}
-                    rows={1}
-                    ref={textareaRef}
-                    className={s.simpleField}
-                    placeholder={placeholder}
-                    maxLength={maxLength}
-                    onKeyDown={onKeyDown}
-                    autoFocus={autoFocus}
-                    {...field}
-                />
-
-                {maxLengthCounter(field.value.length, maxLength)}
-                {errorContainer(error, touched)}
-            </>
-        )
+  const errorContainer = (error: string | undefined, touched: boolean) => {
+    if (error && touched) {
+      return <div className={s.messageError}>{error}</div>;
     }
+    return null;
+  };
 
-    const checkboxGroup = () => {
-        return (
-            <>
-                <div className={s.checkboxInput}>
-                    <Field
-                        id={'form-'+name}
-                        type='checkbox'
-                        checked={field.value}
-                        placeholder={placeholder}
-                        {...field}
-                    />
-                    <label htmlFor={'form-'+name}>{label}</label>
-                </div>
-
-                {errorContainer(error, touched)}
-            </>
-        )
-    }
-
-
-    const errorContainer = (error: any, touched: any) => {
-        if(error && touched){
-            return (
-                <div className={s.fieldError}>{error}</div>
-            )
-        }
-    }
-
-    const maxLengthCounter = (currentLength: number, maxLength: number | undefined) => {
-        if(maxLength) {
-            return (
-                <div className={cn(s.maxLength, {[s.error]: currentLength >= maxLength})}>
-                    {currentLength}/{maxLength}
-                </div>
-            )
-        }
-    }
-
-    return (
-        <div className={s.fieldGroup}>
-            {inputGroupSwitcher()}
+  const maxLengthCounter = (
+    currentLength: number,
+    maxLength: number | undefined
+  ) => {
+    if (maxLength) {
+      return (
+        <div
+          className={cn(s.maxLength, { [s.error]: currentLength >= maxLength })}
+        >
+          {currentLength}/{maxLength}
         </div>
-    )
-})
+      );
+    }
+    return null;
+  };
 
+  const inputGroup = () => {
+    return (
+      <fieldset className={s.inputGroup}>
+        {!!label && <label htmlFor={`form-${name}`}>{label}</label>}
 
+        <div className={s.inputContainer}>
+          <Field
+            as="input"
+            id={`form-${name}`}
+            placeholder={placeholder}
+            maxLength={maxLength}
+            type={type}
+            autoFocus={autoFocus}
+            className={cn({
+              [s.inputError]: error && touched,
+              [s.withIcon]: icon,
+            })}
+          />
+          {icon && <div className={s.fieldIcon}>{iconSwitcher()}</div>}
+          {maxLengthCounter(field.value.length, maxLength)}
+        </div>
 
+        {errorContainer(error, touched)}
+      </fieldset>
+    );
+  };
+
+  const textareaGroup = () => {
+    return (
+      <fieldset className={s.textareaGroup}>
+        {!!label && <label htmlFor={`form-${name}`}>{label}</label>}
+
+        <div className={s.textareaContainer}>
+          <textarea
+            id={`form-${name}`}
+            rows={1}
+            ref={textareaRef}
+            placeholder={placeholder}
+            maxLength={maxLength}
+            onKeyDown={onKeyDown}
+            autoFocus={autoFocus}
+            className={cn({ [s.inputError]: error && touched })}
+          />
+          {maxLengthCounter(field.value.length, maxLength)}
+        </div>
+
+        {errorContainer(error, touched)}
+      </fieldset>
+    );
+  };
+
+  const checkboxGroup = () => {
+    return (
+      <fieldset className={s.checkboxGroup}>
+        <div className={s.checkboxAndLabel}>
+          <Field
+            id={`form-${name}`}
+            type="checkbox"
+            checked={field.value}
+            placeholder={placeholder}
+          />
+          <label htmlFor={`form-${name}`}>{label}</label>
+        </div>
+
+        {errorContainer(error, touched)}
+      </fieldset>
+    );
+  };
+
+  // Render desired field by fieldType
+  const fieldTypeSwitcher = () => {
+    switch (fieldType) {
+      case "input":
+        return inputGroup();
+
+      case "textarea":
+        return textareaGroup();
+
+      case "checkbox":
+        return checkboxGroup();
+
+      default:
+        return inputGroup();
+    }
+  };
+
+  return <div className={s.field}>{fieldTypeSwitcher()}</div>;
+});
+
+export default CustomField;

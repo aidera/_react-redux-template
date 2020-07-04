@@ -1,15 +1,13 @@
-import React from 'react'
-import s from './Overlay.module.sass'
-
+import React from "react";
+import s from "./Overlay.module.sass";
 
 type PropsType = {
-    onClick?: () => void
-}
+  onClick?: () => void;
+};
 
-const Overlay: React.FC<PropsType> = React.memo(({onClick}) => {
-    return <div onClick={onClick} className={s.overlay} />
-})
+const Overlay: React.FC<PropsType> = React.memo((props: PropsType) => {
+  const { onClick } = props;
+  return <div role="dialog" onClick={onClick} className={s.overlay} />;
+});
 
-
-
-export default Overlay
+export default Overlay;

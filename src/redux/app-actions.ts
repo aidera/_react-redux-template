@@ -1,21 +1,30 @@
-import {BaseThunkType, InferActionsTypes} from './store'
+import { ThunkAction } from "redux-thunk";
+import { AnyAction } from "redux";
 
+export const SET_INITIAL = "app/SET_INITIAL";
+export const SET_GLOBAL_ERROR = "app/SET_GLOBAL_ERROR";
 
+type SetInitialType = {
+  type: typeof SET_INITIAL;
+};
 
-export const SET_INITIAL = 'app/SET_INITIAL'
-export const SET_GLOBAL_ERROR = 'app/SET_GLOBAL_ERROR'
+export const setInitial = (): SetInitialType => ({ type: SET_INITIAL });
 
+type SetGlobalError = {
+  type: typeof SET_GLOBAL_ERROR;
+  error: string;
+};
 
+export const setGlobalError = (error: string): SetGlobalError =>
+  ({ type: SET_GLOBAL_ERROR, error } as const);
 
-export const actions = {
-    setInitial: () => ({ type: SET_INITIAL } as const),
-    setGlobalError:  (error: string) => ({ type: SET_GLOBAL_ERROR, error } as const)
-}
-export type ActionTypes = InferActionsTypes<typeof actions>
+export type AppActionsTypes = SetInitialType | SetGlobalError;
 
-
-
-
-export const initializeApp = ():BaseThunkType<ActionTypes> => async (dispatch) => {
-    dispatch(actions.setInitial())
-}
+export const initializeApp = (): ThunkAction<
+  Promise<void>,
+  any,
+  any,
+  AnyAction
+> => async (dispatch) => {
+  dispatch(setInitial());
+};
