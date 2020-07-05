@@ -83,12 +83,13 @@ const CustomField: React.FC<PropsType> = React.memo((props: PropsType) => {
   const inputGroup = () => {
     return (
       <fieldset className={s.inputGroup}>
-        {!!label && <label htmlFor={`form-${name}`}>{label}</label>}
+        {!!label && <label htmlFor={`${name}`}>{label}</label>}
 
         <div className={s.inputContainer}>
           <Field
+            name={name}
             as="input"
-            id={`form-${name}`}
+            id={name}
             placeholder={placeholder}
             maxLength={maxLength}
             type={type}
@@ -99,7 +100,7 @@ const CustomField: React.FC<PropsType> = React.memo((props: PropsType) => {
             })}
           />
           {icon && <div className={s.fieldIcon}>{iconSwitcher()}</div>}
-          {maxLengthCounter(field.value.length, maxLength)}
+          {field.value && maxLengthCounter(field.value.length, maxLength)}
         </div>
 
         {errorContainer(error, touched)}
@@ -110,11 +111,12 @@ const CustomField: React.FC<PropsType> = React.memo((props: PropsType) => {
   const textareaGroup = () => {
     return (
       <fieldset className={s.textareaGroup}>
-        {!!label && <label htmlFor={`form-${name}`}>{label}</label>}
+        {!!label && <label htmlFor={name}>{label}</label>}
 
         <div className={s.textareaContainer}>
           <textarea
-            id={`form-${name}`}
+            name={name}
+            id={name}
             rows={1}
             ref={textareaRef}
             placeholder={placeholder}
@@ -123,7 +125,7 @@ const CustomField: React.FC<PropsType> = React.memo((props: PropsType) => {
             autoFocus={autoFocus}
             className={cn({ [s.inputError]: error && touched })}
           />
-          {maxLengthCounter(field.value.length, maxLength)}
+          {field.value && maxLengthCounter(field.value.length, maxLength)}
         </div>
 
         {errorContainer(error, touched)}
@@ -136,12 +138,13 @@ const CustomField: React.FC<PropsType> = React.memo((props: PropsType) => {
       <fieldset className={s.checkboxGroup}>
         <div className={s.checkboxAndLabel}>
           <Field
-            id={`form-${name}`}
+            name={name}
+            id={name}
             type="checkbox"
             checked={field.value}
             placeholder={placeholder}
           />
-          <label htmlFor={`form-${name}`}>{label}</label>
+          <label htmlFor={name}>{label}</label>
         </div>
 
         {errorContainer(error, touched)}

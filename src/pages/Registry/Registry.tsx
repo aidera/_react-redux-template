@@ -29,7 +29,7 @@ const Registry: React.FC = React.memo(() => {
           <h1>Registry</h1>
 
           <CustomField
-            name="email"
+            name="registry-email"
             fieldType="input"
             type="email"
             placeholder="Enter your email"
@@ -39,7 +39,7 @@ const Registry: React.FC = React.memo(() => {
             icon="email"
           />
           <CustomField
-            name="password"
+            name="registry-password"
             fieldType="input"
             type="password"
             placeholder="Enter your password"

@@ -29,7 +29,7 @@ const Login: React.FC = React.memo(() => {
           <h1>Login</h1>
 
           <CustomField
-            name="email"
+            name="login-email"
             fieldType="input"
             type="email"
             placeholder="Enter your email"
@@ -39,7 +39,7 @@ const Login: React.FC = React.memo(() => {
             icon="email"
           />
           <CustomField
-            name="password"
+            name="login-password"
             fieldType="input"
             type="password"
             placeholder="Enter your password"
