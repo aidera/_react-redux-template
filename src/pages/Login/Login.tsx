@@ -5,20 +5,22 @@ import s from "../../layouts/SignLayout/SignLayout.module.sass";
 import CustomField from "../../components/FormsControls/CustomFormControls";
 
 type FormValues = {
-  email: string;
-  password: string;
+  "login-email": string;
+  "login-password": string;
 };
 
 const Login: React.FC = React.memo(() => {
   return (
     <Formik
       initialValues={{
-        email: "",
-        password: "",
+        "login-email": "",
+        "login-password": "",
       }}
       validationSchema={Yup.object({
-        email: Yup.string().email("Invalid email address").required("Required"),
-        password: Yup.string().required("Required"),
+        "login-email": Yup.string()
+          .email("Invalid email address")
+          .required("Required"),
+        "login-password": Yup.string().required("Required"),
       })}
       onSubmit={(values, actions) => {
         console.log("submit");
