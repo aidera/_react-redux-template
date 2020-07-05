@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { withRouter, RouteComponentProps } from "react-router-dom";
 import { compose } from "redux";
 import { Helmet } from "react-helmet";
-import Login from "./Login";
+import Registry from "./Registry";
 import SignLayout from "../../layouts/SignLayout/SignLayout";
 import { AppStateType } from "../../redux/root-reducer";
 
@@ -21,15 +21,15 @@ type PropsType = MapStateToPropsType &
   MapDispatchToProps &
   RouteComponentProps<PathPropsType>;
 
-class LoginContainer extends React.PureComponent<PropsType> {
+class RegistryContainer extends React.PureComponent<PropsType> {
   render() {
     return (
       <>
         <Helmet>
-          <title>Login page</title>
+          <title>Registry page</title>
         </Helmet>
         <SignLayout>
-          <Login />
+          <Registry />
         </SignLayout>
       </>
     );
@@ -39,4 +39,4 @@ class LoginContainer extends React.PureComponent<PropsType> {
 export default compose<React.ComponentType>(
   connect(mapStateToProps, mapDispatchToProps),
   withRouter
-)(LoginContainer);
+)(RegistryContainer);

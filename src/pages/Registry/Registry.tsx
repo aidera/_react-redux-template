@@ -9,7 +9,7 @@ type FormValues = {
   password: string;
 };
 
-const Login: React.FC = React.memo(() => {
+const Registry: React.FC = React.memo(() => {
   return (
     <Formik
       initialValues={{
@@ -26,7 +26,7 @@ const Login: React.FC = React.memo(() => {
     >
       {(props: FormikProps<FormValues>) => (
         <Form className={s.form} onSubmit={props.handleSubmit}>
-          <h1>Login</h1>
+          <h1>Registry</h1>
 
           <CustomField
             name="email"
@@ -55,4 +55,4 @@ const Login: React.FC = React.memo(() => {
   );
 });
 
-export default Login;
+export default Registry;

@@ -37,7 +37,7 @@ class App extends React.PureComponent<PropsType, StateProps> {
     if (!initialized) {
       return <Preloader />;
     }
-    return <Router />;
+    return <Router isAuth />;
   }
 }
 
