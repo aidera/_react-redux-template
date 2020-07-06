@@ -9,19 +9,14 @@ import { AppStateType } from "../../redux/root-reducer";
 
 const mapStateToProps = (state: AppStateType) => ({});
 
-const mapDispatchToProps: MapDispatchToProps = {};
+const mapDispatchToProps = {};
 
-type MapStateToPropsType = ReturnType<typeof mapStateToProps>;
-
-type MapDispatchToProps = {};
-
+type StoreType = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
 type PathPropsType = {
   itemId: string;
 };
 
-type PropsType = MapStateToPropsType &
-  MapDispatchToProps &
-  RouteComponentProps<PathPropsType>;
+type PropsType = StoreType & RouteComponentProps<PathPropsType>;
 
 class IndexContainer extends React.PureComponent<PropsType> {
   render() {

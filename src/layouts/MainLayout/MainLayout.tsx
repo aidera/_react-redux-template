@@ -3,11 +3,11 @@ import s from "./MainLayout.module.sass";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 
-type OwnPropsType = {
+type PropsType = {
   children: React.ReactNode;
 };
 
-const MainLayout: React.FC<OwnPropsType> = React.memo((props: OwnPropsType) => {
+const MainLayout: React.FC<PropsType> = React.memo((props: PropsType) => {
   const { children } = props;
 
   return (

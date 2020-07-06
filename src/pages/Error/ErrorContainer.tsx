@@ -1,25 +1,19 @@
-import Error from "./Error";
 import React from "react";
 import { connect } from "react-redux";
 import { withRouter, RouteComponentProps } from "react-router-dom";
 import { compose } from "redux";
 import { Helmet } from "react-helmet";
+import Error from "./Error";
 import MainLayout from "../../layouts/MainLayout/MainLayout";
 import { AppStateType } from "../../redux/root-reducer";
 
 const mapStateToProps = (state: AppStateType) => ({});
 
-const mapDispatchToProps: MapDispatchToProps = {};
+const mapDispatchToProps = {};
 
-type MapStateToPropsType = ReturnType<typeof mapStateToProps>;
-
-type MapDispatchToProps = {};
-
+type StoreType = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
 type PathPropsType = {};
-
-type PropsType = MapStateToPropsType &
-  MapDispatchToProps &
-  RouteComponentProps<PathPropsType>;
+type PropsType = StoreType & RouteComponentProps<PathPropsType>;
 
 class ErrorContainer extends React.PureComponent<PropsType> {
   render() {

@@ -1,50 +1,57 @@
 @import ../../assets/styles/_variables
 
 .field
+  position: relative
+
+  /* Common for all fields */
+  .messageError
+    color: $danger-color
+    margin-top: 3px
+
+  .inputError
+    border-color: $danger-color
+
+  .withIcon
+    padding-right: 30px
+
+  .fieldIcon
+    position: absolute
+    top: 50%
+    right: 10px
+    transform: translateY(-50%)
+    svg
+      width: 15px
+      height: 15px
+
+
+
+
+   /* Simple text fields */
+  .inputContainer, .textareaContainer
     position: relative
 
-    .inputContainer, .textareaContainer
-        position: relative
-
-        .maxLength
-            color: gray
-            font-size: 10px
-            font-weight: bolder
-            position: absolute
-            bottom: -15px
-            right: 0
-            &.error
-                color: $danger-color
-
-
-    .messageError
+    .maxLength
+      color: gray
+      font-size: 10px
+      font-weight: bolder
+      position: absolute
+      bottom: -15px
+      right: 0
+      &.error
         color: $danger-color
-        margin-top: 3px
-
-    .inputError
-        border-color: $danger-color
-
-    .withIcon
-        padding-right: 30px
-
-    .fieldIcon
-        position: absolute
-        top: 50%
-        right: 10px
-        transform: translateY(-50%)
-        svg
-            width: 15px
-            height: 15px
 
 
 
-    .inputGroup, .textareaGroup
-        label
-            display: block
 
-    .checkboxGroup
-        label
-            display: inline-block
-        input
-            display: inline-block
-            margin-right: 5px
+
+  /* Labels in different fields */
+  .inputGroup, .textareaGroup
+    label
+      display: block
+
+  .checkboxGroup
+    label
+      display: inline-block
+    input
+      display: inline-block
+      margin-right: 5px

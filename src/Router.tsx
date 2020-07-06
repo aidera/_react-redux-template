@@ -5,6 +5,7 @@ import ItemContainer from "./pages/Item/ItemContainer";
 import IndexContainer from "./pages/Index/IndexContainer";
 import ErrorContainer from "./pages/Error/ErrorContainer";
 import LoginContainer from "./pages/Login/LoginContainer";
+import RegistryContainer from "./pages/Registry/RegistryContainer";
 
 type PropsType = {
   isAuth: boolean;
@@ -29,7 +30,7 @@ const Router: React.FC<PropsType> = React.memo((props: PropsType) => {
       {!isAuth && (
         <Switch>
           <Route path="/login" render={() => <LoginContainer />} />
-          <Route path="/register" render={() => <>Register page</>} />
+          <Route path="/register" render={() => <RegistryContainer />} />
           <Route exact path="*">
             <Redirect to="/login" />
           </Route>

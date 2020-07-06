@@ -10,21 +10,23 @@ import Preloader from "./components/Preloader/Preloader";
 import Router from "./Router";
 import { AppStateType } from "./redux/root-reducer";
 
-type MapStateToProps = {
-  initialized: boolean;
-  globalError: string | null;
+const mapStateToProps = (state: AppStateType) => ({
+  initialized: getInitialized(state),
+  globalError: getGlobalError(state),
+});
+
+const mapDispatchToProps = {
+  initializeApp,
+  setGlobalError,
 };
 
-type MapDispatchToProps = {
-  initializeApp: () => void;
-  setGlobalError: (error: string) => void;
-};
+type StoreProps = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
 
 type StateProps = {
   isModalOpen: boolean;
 };
 
-type PropsType = MapStateToProps & MapDispatchToProps;
+type PropsType = StoreProps;
 
 class App extends React.PureComponent<PropsType, StateProps> {
   componentDidMount() {
@@ -40,16 +42,6 @@ class App extends React.PureComponent<PropsType, StateProps> {
     return <Router isAuth />;
   }
 }
-
-const mapStateToProps = (state: AppStateType): MapStateToProps => ({
-  initialized: getInitialized(state),
-  globalError: getGlobalError(state),
-});
-
-const mapDispatchToProps: MapDispatchToProps = {
-  initializeApp,
-  setGlobalError,
-};
 
 const AppContainer = compose(
   withRouter,

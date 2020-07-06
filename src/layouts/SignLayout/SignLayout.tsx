@@ -2,11 +2,11 @@ import React from "react";
 import s from "./SignLayout.module.sass";
 import bgImage from "../../assets/images/sign-bg.jpg";
 
-type OwnPropsType = {
+type PropsType = {
   children: React.ReactNode;
 };
 
-const MainLayout: React.FC<OwnPropsType> = React.memo((props: OwnPropsType) => {
+const MainLayout: React.FC<PropsType> = React.memo((props: PropsType) => {
   const { children } = props;
 
   return (
