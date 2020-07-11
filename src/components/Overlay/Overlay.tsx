@@ -1,5 +1,5 @@
 import React from "react";
-import s from "./Overlay.module.sass";
+import s from "./Overlay.module.scss";
 
 type PropsType = {
   onClick?: () => void;

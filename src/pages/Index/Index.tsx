@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import s from "./Index.module.sass";
 import Modal from "../../components/Modal/Modal";
 
-type OwnPropsType = {};
+type PropsType = {};
 
-const Index: React.FC<OwnPropsType> = React.memo(() => {
+const Index: React.FC<PropsType> = React.memo(() => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const openModal = (status: boolean) => {
     setIsModalOpen(status);
@@ -47,7 +46,7 @@ const Index: React.FC<OwnPropsType> = React.memo(() => {
         promiseRejectError="this is an error in reject"
       />
 
-      <div className={s.indexPage}>
+      <div>
         <h1>Index page</h1>
         <button
           type="button"

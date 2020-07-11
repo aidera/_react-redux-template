@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import s from "./Header.module.sass";
+import s from "./Header.module.scss";
 
 const Header: React.FC = React.memo(() => {
   return (

@@ -1,16 +1,13 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import s from "./Error.module.sass";
 
-type OwnPropsType = {};
+type PropsType = {};
 
-const Error: React.FC<OwnPropsType> = React.memo(() => {
+const Error: React.FC<PropsType> = React.memo(() => {
   return (
-    <div className={s.errorPage}>
+    <div>
       <h1>Page not found</h1>
-      <NavLink className={s.link} to={"/"}>
-        Go to home page
-      </NavLink>
+      <NavLink to="/">Go to home page</NavLink>
     </div>
   );
 });

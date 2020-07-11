@@ -1,8 +1,10 @@
 import React from "react";
 import { Formik, Form, FormikProps } from "formik";
 import * as Yup from "yup";
-import s from "../../layouts/SignLayout/SignLayout.module.sass";
-import CustomField from "../../components/FormsControls/CustomFormControls";
+import s from "../../layouts/SignLayout/SignLayout.module.scss";
+import FieldInput from "../../components/FormsControls/FieldInput";
+import Button from "../../components/Button/Button";
+import {BsPerson} from "react-icons/bs";
 
 type FormValues = {
   "login-email": string;
@@ -30,9 +32,8 @@ const Login: React.FC = React.memo(() => {
         <Form className={s.form} onSubmit={props.handleSubmit}>
           <h1>Login</h1>
 
-          <CustomField
+          <FieldInput
             name="login-email"
-            fieldType="input"
             type="email"
             placeholder="Enter your email"
             label="Email"
@@ -40,17 +41,14 @@ const Login: React.FC = React.memo(() => {
             maxLength={30}
             icon="email"
           />
-          <CustomField
+          <FieldInput
             name="login-password"
-            fieldType="input"
             type="password"
             placeholder="Enter your password"
             label="Password"
             icon="password"
           />
-          <button className="button-type-1" type="submit">
-            Submit
-          </button>
+          <Button buttonStyle="fill"><BsPerson /> Submit</Button>
         </Form>
       )}
     </Formik>

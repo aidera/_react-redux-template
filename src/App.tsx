@@ -5,7 +5,7 @@ import { compose } from "redux";
 import { setInitial, setGlobalError, initializeApp } from "./redux/app-actions";
 import { getInitialized, getGlobalError } from "./redux/app-selectors";
 import store from "./redux/store";
-import "./assets/styles/template.sass";
+import "./assets/theme/theme.scss";
 import Preloader from "./components/Preloader/Preloader";
 import Router from "./Router";
 import { AppStateType } from "./redux/root-reducer";
@@ -20,7 +20,8 @@ const mapDispatchToProps = {
   setGlobalError,
 };
 
-type StoreProps = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
+type StoreProps = ReturnType<typeof mapStateToProps> &
+  typeof mapDispatchToProps;
 
 type StateProps = {
   isModalOpen: boolean;

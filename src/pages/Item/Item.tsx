@@ -1,13 +1,13 @@
 import React from "react";
-import s from "./Item.module.sass";
 
-type OwnPropsType = {
+type PropsType = {
   itemId: string;
 };
 
-const Item: React.FC<OwnPropsType> = React.memo(({ itemId }) => {
+const Item: React.FC<PropsType> = React.memo((props: PropsType) => {
+  const { itemId } = props;
   return (
-    <div className={s.item}>
+    <div>
       <h1>Item - {itemId}</h1>
     </div>
   );

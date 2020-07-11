@@ -1,8 +1,8 @@
 import React from "react";
 import { Formik, Form, FormikProps } from "formik";
 import * as Yup from "yup";
-import s from "../../layouts/SignLayout/SignLayout.module.sass";
-import CustomField from "../../components/FormsControls/CustomFormControls";
+import s from "../../layouts/SignLayout/SignLayout.module.scss";
+import FieldInput from "../../components/FormsControls/FieldInput";
 
 type FormValues = {
   "registry-email": string;
@@ -30,9 +30,8 @@ const Registry: React.FC = React.memo(() => {
         <Form className={s.form} onSubmit={props.handleSubmit}>
           <h1>Registry</h1>
 
-          <CustomField
+          <FieldInput
             name="registry-email"
-            fieldType="input"
             type="email"
             placeholder="Enter your email"
             label="Email"
@@ -40,9 +39,8 @@ const Registry: React.FC = React.memo(() => {
             maxLength={30}
             icon="email"
           />
-          <CustomField
+          <FieldInput
             name="registry-password"
-            fieldType="input"
             type="password"
             placeholder="Enter your password"
             label="Password"

@@ -1,6 +1,6 @@
 import React, { RefObject } from "react";
 import cn from "classnames";
-import s from "./Modal.module.sass";
+import s from "./Modal.module.scss";
 import Preloader from "../Preloader/Preloader";
 import Overlay from "../Overlay/Overlay";
 import show from "../../assets/utils/animations/show";
@@ -10,7 +10,7 @@ import hide from "../../assets/utils/animations/hide";
 /* Made with class component because of show-animation in beginning and loading state inside
 (when state in func have changed component rerenders and begin show-animation again) */
 
-type OwnPropsType = {
+type PropsType = {
   text?: string | null;
   buttonResolveText?: string;
   buttonRejectText?: string;
@@ -26,8 +26,6 @@ type OwnPropsType = {
   setIsOpen: (status: boolean) => void;
   isOpen: boolean;
 };
-
-type PropsType = OwnPropsType;
 
 type StateType = {
   text: string | null;

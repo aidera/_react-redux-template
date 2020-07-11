@@ -1,24 +1,39 @@
 import React from "react";
-import s from "./SignLayout.module.sass";
+import s from "./SignLayout.module.scss";
 import bgImage from "../../assets/images/sign-bg.jpg";
+import { AppStateType } from "../../redux/root-reducer";
 
-type PropsType = {
+type OwnPropsType = {
   children: React.ReactNode;
 };
 
-const MainLayout: React.FC<PropsType> = React.memo((props: PropsType) => {
-  const { children } = props;
+const mapStateToProps = (state: AppStateType, ownProps: OwnPropsType) => {
+  return {
+    children: ownProps.children,
+  };
+};
 
-  return (
-    <>
-      <main className={s.page}>
-        <div className={s.formBlock}>{children}</div>
-        <div className={s.imgBlock}>
-          <img src={bgImage} alt="" />
-        </div>
-      </main>
-    </>
-  );
-});
+const mapDispatchToProps = {};
+
+type StoreProps = ReturnType<typeof mapStateToProps> &
+  typeof mapDispatchToProps;
+type PropsType = StoreProps;
+
+class MainLayout extends React.PureComponent<PropsType> {
+  render(): React.ReactNode {
+    const { children } = this.props;
+
+    return (
+      <>
+        <main className={s.page}>
+          <div className={s.formBlock}>{children}</div>
+          <div className={s.imgBlock}>
+            <img src={bgImage} alt="" />
+          </div>
+        </main>
+      </>
+    );
+  }
+}
 
 export default MainLayout;

@@ -23,11 +23,11 @@ export const itemApi = {
   },
 
   updateStatus(status: string | null) {
-    return instance.put<APIResponseType>(`profile/status`, { status: status });
+    return instance.put<APIResponseType>(`profile/status`, { status });
   },
 
   savePhoto(photoFile: File) {
-    let formData = new FormData();
+    const formData = new FormData();
     formData.append("image", photoFile);
     return instance
       .put<APIResponseType<SavePhotoResponseType>>(`profile/photo`, formData, {

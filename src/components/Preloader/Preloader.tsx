@@ -1,5 +1,5 @@
 import React from "react";
-import s from "./Preloader.module.sass";
+import s from "./Preloader.module.scss";
 import img from "../../assets/images/loader.svg";
 
 const Preloader = React.memo(() => {

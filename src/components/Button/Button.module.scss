@@ -1,0 +1,27 @@
+@import "../../assets/theme/variables";
+
+.button {
+  padding: 10px;
+  display: inline-block;
+  text-align: center;
+  border-radius: $border-radius-1;
+  cursor: pointer;
+}
+
+.filled {
+  background-color: $primary-color;
+  color: white;
+  font-weight: $font-weight-bold;
+  * {
+    color: white;
+    fill: white;
+    font-weight: $font-weight-bold;
+    margin: 0 5px;
+  }
+}
+
+.outline {
+  background-color: $primary-color;
+  font-weight: $font-weight-normal;
+  border: $border-1;
+}

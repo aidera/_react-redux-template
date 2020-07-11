@@ -1,5 +1,5 @@
 import React from "react";
-import s from "./Footer.module.sass";
+import s from "./Footer.module.scss";
 
 const Footer = React.memo(() => {
   return <footer className={s.footer} />;
