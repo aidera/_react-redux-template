@@ -4,7 +4,7 @@ import { withRouter, RouteComponentProps } from "react-router-dom";
 import { compose } from "redux";
 import { Helmet } from "react-helmet";
 import Login from "./Login";
-import SignLayout from "../../layouts/SignLayout/SignLayout";
+import AuthLayout from "../../layouts/AuthLayout/AuthLayout";
 import { AppStateType } from "../../redux/root-reducer";
 
 const mapStateToProps = (state: AppStateType) => ({});
@@ -22,9 +22,9 @@ class LoginContainer extends React.PureComponent<PropsType> {
         <Helmet>
           <title>Login page</title>
         </Helmet>
-        <SignLayout>
+        <AuthLayout>
           <Login />
-        </SignLayout>
+        </AuthLayout>
       </>
     );
   }

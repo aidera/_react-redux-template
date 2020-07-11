@@ -1,5 +1,5 @@
 import React from "react";
-import s from "./SignLayout.module.scss";
+import s from "./AuthLayout.module.scss";
 import bgImage from "../../assets/images/sign-bg.jpg";
 import { AppStateType } from "../../redux/root-reducer";
 
@@ -19,7 +19,7 @@ type StoreProps = ReturnType<typeof mapStateToProps> &
   typeof mapDispatchToProps;
 type PropsType = StoreProps;
 
-class MainLayout extends React.PureComponent<PropsType> {
+class AuthLayout extends React.PureComponent<PropsType> {
   render(): React.ReactNode {
     const { children } = this.props;
 
@@ -36,4 +36,4 @@ class MainLayout extends React.PureComponent<PropsType> {
   }
 }
 
-export default MainLayout;
+export default AuthLayout;

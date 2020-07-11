@@ -2,7 +2,7 @@ import React from "react";
 import { Formik, Form, FormikProps } from "formik";
 import * as Yup from "yup";
 import { BsPerson } from "react-icons/bs";
-import s from "../../layouts/SignLayout/SignLayout.module.scss";
+import s from "../../layouts/AuthLayout/AuthLayout.module.scss";
 import FieldInput from "../../components/FormsControls/FieldInput";
 import Button from "../../components/Button/Button";
 

@@ -4,7 +4,7 @@ import { withRouter, RouteComponentProps } from "react-router-dom";
 import { compose } from "redux";
 import { Helmet } from "react-helmet";
 import Registry from "./Registry";
-import SignLayout from "../../layouts/SignLayout/SignLayout";
+import AuthLayout from "../../layouts/AuthLayout/AuthLayout";
 import { AppStateType } from "../../redux/root-reducer";
 
 const mapStateToProps = (state: AppStateType) => ({});
@@ -22,9 +22,9 @@ class RegistryContainer extends React.PureComponent<PropsType> {
         <Helmet>
           <title>Registry page</title>
         </Helmet>
-        <SignLayout>
+        <AuthLayout>
           <Registry />
-        </SignLayout>
+        </AuthLayout>
       </>
     );
   }
