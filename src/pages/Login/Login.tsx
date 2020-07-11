@@ -1,10 +1,10 @@
 import React from "react";
 import { Formik, Form, FormikProps } from "formik";
 import * as Yup from "yup";
+import { BsPerson } from "react-icons/bs";
 import s from "../../layouts/SignLayout/SignLayout.module.scss";
 import FieldInput from "../../components/FormsControls/FieldInput";
 import Button from "../../components/Button/Button";
-import {BsPerson} from "react-icons/bs";
 
 type FormValues = {
   "login-email": string;
@@ -48,7 +48,9 @@ const Login: React.FC = React.memo(() => {
             label="Password"
             icon="password"
           />
-          <Button buttonStyle="fill"><BsPerson /> Submit</Button>
+          <Button buttonStyle="fill">
+            <BsPerson /> Submit
+          </Button>
         </Form>
       )}
     </Formik>
