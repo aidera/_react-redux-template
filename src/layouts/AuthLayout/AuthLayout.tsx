@@ -2,6 +2,9 @@ import React from "react";
 import s from "./AuthLayout.module.scss";
 import bgImage from "../../assets/images/sign-bg.jpg";
 import { AppStateType } from "../../redux/root-reducer";
+import {compose} from "redux";
+import {connect} from "react-redux";
+import {withRouter} from "react-router-dom";
 
 type OwnPropsType = {
   children: React.ReactNode;
@@ -36,4 +39,7 @@ class AuthLayout extends React.PureComponent<PropsType> {
   }
 }
 
-export default AuthLayout;
+export default compose<React.ComponentType<OwnPropsType>>(
+  connect(mapStateToProps, mapDispatchToProps),
+  withRouter
+)(AuthLayout);
