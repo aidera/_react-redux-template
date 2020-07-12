@@ -22,9 +22,7 @@ class LoginContainer extends React.PureComponent<PropsType> {
         <Helmet>
           <title>Login page</title>
         </Helmet>
-        <AuthLayout>
-          <Login />
-        </AuthLayout>
+        <AuthLayout ChildComponent={() => <Login />} />
       </>
     );
   }

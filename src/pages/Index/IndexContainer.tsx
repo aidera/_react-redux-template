@@ -22,9 +22,7 @@ class IndexContainer extends React.PureComponent<PropsType> {
         <Helmet>
           <title>Index page</title>
         </Helmet>
-        <MainLayout>
-          <Index />
-        </MainLayout>
+        <MainLayout ChildComponent={() => <Index />} />
       </>
     );
   }

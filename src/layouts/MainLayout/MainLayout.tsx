@@ -8,12 +8,12 @@ import Footer from "../../components/Footer/Footer";
 import { AppStateType } from "../../redux/root-reducer";
 
 type OwnPropsType = {
-  children: React.ReactNode;
+  ChildComponent: () => any;
 };
 
 const mapStateToProps = (state: AppStateType, ownProps: OwnPropsType) => {
   return {
-    children: ownProps.children,
+    ChildComponent: ownProps.ChildComponent,
   };
 };
 
@@ -25,12 +25,12 @@ type PropsType = StoreProps;
 
 class MainLayout extends React.PureComponent<PropsType> {
   render(): React.ReactNode {
-    const { children } = this.props;
+    const { ChildComponent } = this.props;
 
     return (
       <div className={s.mainLayout}>
         <Header />
-        {children}
+        {ChildComponent()}
         <Footer />
       </div>
     );

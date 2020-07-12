@@ -1,18 +1,18 @@
 import React from "react";
+import { compose } from "redux";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 import s from "./AuthLayout.module.scss";
 import bgImage from "../../assets/images/sign-bg.jpg";
 import { AppStateType } from "../../redux/root-reducer";
-import {compose} from "redux";
-import {connect} from "react-redux";
-import {withRouter} from "react-router-dom";
 
 type OwnPropsType = {
-  children: React.ReactNode;
+  ChildComponent: () => any;
 };
 
 const mapStateToProps = (state: AppStateType, ownProps: OwnPropsType) => {
   return {
-    children: ownProps.children,
+    ChildComponent: ownProps.ChildComponent,
   };
 };
 
@@ -24,12 +24,12 @@ type PropsType = StoreProps;
 
 class AuthLayout extends React.PureComponent<PropsType> {
   render(): React.ReactNode {
-    const { children } = this.props;
+    const { ChildComponent } = this.props;
 
     return (
       <>
         <main className={s.page}>
-          <div className={s.formBlock}>{children}</div>
+          <div className={s.formBlock}>{ChildComponent()}</div>
           <div className={s.imgBlock}>
             <img src={bgImage} alt="" />
           </div>

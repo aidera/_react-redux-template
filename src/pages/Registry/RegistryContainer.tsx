@@ -22,9 +22,7 @@ class RegistryContainer extends React.PureComponent<PropsType> {
         <Helmet>
           <title>Registry page</title>
         </Helmet>
-        <AuthLayout>
-          <Registry />
-        </AuthLayout>
+        <AuthLayout ChildComponent={() => <Registry />} />
       </>
     );
   }

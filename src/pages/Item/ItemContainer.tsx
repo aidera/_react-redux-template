@@ -26,9 +26,9 @@ class IndexContainer extends React.PureComponent<PropsType> {
         <Helmet>
           <title>Item {match.params.itemId}</title>
         </Helmet>
-        <MainLayout>
-          <Item itemId={match.params.itemId} />
-        </MainLayout>
+        <MainLayout
+          ChildComponent={() => <Item itemId={match.params.itemId} />}
+        />
       </>
     );
   }

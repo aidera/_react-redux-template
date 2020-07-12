@@ -22,9 +22,7 @@ class ErrorContainer extends React.PureComponent<PropsType> {
         <Helmet>
           <title>Page not found</title>
         </Helmet>
-        <MainLayout>
-          <Error />
-        </MainLayout>
+        <MainLayout ChildComponent={() => <Error />} />
       </>
     );
   }
