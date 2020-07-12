@@ -48,7 +48,7 @@ const Registry: React.FC = React.memo(() => {
             label="Password"
             icon="password"
           />
-          <Button buttonStyle="fill">
+          <Button variant="fill">
             <BsPerson /> Submit
           </Button>
         </Form>

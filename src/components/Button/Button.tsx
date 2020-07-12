@@ -4,7 +4,7 @@ import s from "./Button.module.scss";
 
 type PropsType = {
   type?: "button" | "submit" | "reset" | undefined;
-  buttonStyle?: "fill" | "outline" | undefined;
+  variant?: "fill" | "outline" | undefined;
   children: React.ReactNode;
 };
 
