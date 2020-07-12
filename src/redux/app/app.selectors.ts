@@ -1,4 +1,4 @@
-import { AppStateType } from "../root-reducer";
+import { AppStateType } from "../root.reducer";
 
 export const getInitialized = (state: AppStateType) => {
   return state.app.initialized;

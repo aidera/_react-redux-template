@@ -5,7 +5,7 @@ import { withRouter } from "react-router-dom";
 import s from "./MainLayout.module.scss";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
-import { AppStateType } from "../../redux/root-reducer";
+import { AppStateType } from "../../redux/root.reducer";
 
 type OwnPropsType = {
   ChildComponent: () => any;

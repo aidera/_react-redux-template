@@ -5,7 +5,7 @@ import { compose } from "redux";
 import { Helmet } from "react-helmet";
 import Error from "./Error";
 import MainLayout from "../../layouts/MainLayout/MainLayout";
-import { AppStateType } from "../../redux/root-reducer";
+import { AppStateType } from "../../redux/root.reducer";
 
 const mapStateToProps = (state: AppStateType) => ({});
 

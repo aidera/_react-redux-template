@@ -5,7 +5,7 @@ import { compose } from "redux";
 import { Helmet } from "react-helmet";
 import Login from "./Login";
 import AuthLayout from "../../layouts/AuthLayout/AuthLayout";
-import { AppStateType } from "../../redux/root-reducer";
+import { AppStateType } from "../../redux/root.reducer";
 
 const mapStateToProps = (state: AppStateType) => ({});
 

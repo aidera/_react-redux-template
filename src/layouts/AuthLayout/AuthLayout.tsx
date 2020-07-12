@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import s from "./AuthLayout.module.scss";
 import bgImage from "../../assets/images/sign-bg.jpg";
-import { AppStateType } from "../../redux/root-reducer";
+import { AppStateType } from "../../redux/root.reducer";
 
 type OwnPropsType = {
   ChildComponent: () => any;

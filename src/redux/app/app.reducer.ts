@@ -1,4 +1,4 @@
-import { SET_INITIAL, SET_GLOBAL_ERROR, AppActionsTypes } from "./app-actions";
+import { SET_INITIAL, SET_GLOBAL_ERROR, AppActionsTypes } from "./app.actions";
 
 const initialState = {
   initialized: false,
