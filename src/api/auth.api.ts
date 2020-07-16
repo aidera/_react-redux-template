@@ -1,23 +1,27 @@
 import instance from "./index";
 
-type RegisterResponseType = {
+interface IRegisterResponse {
   status: number;
   message: string;
-  errors?: Array<any>;
-};
+  errors?: Array<string>;
+}
 
-type LoginResponseType = {
+export interface ILoginResponse {
   status: number;
   message: string;
-  errors?: Array<any>;
+  errors?: Array<string>;
   token?: string;
   userId?: string;
-};
+}
 
 const authApi = {
   register(name: string, email: string, password: string) {
     return instance
-      .post<RegisterResponseType>("auth/register", { name, email, password })
+      .post<IRegisterResponse>("auth/register", {
+        name,
+        email,
+        password,
+      })
       .then((response) => {
         return response.data;
       });
@@ -25,7 +29,10 @@ const authApi = {
 
   login(email: string, password: string) {
     return instance
-      .post<LoginResponseType>("auth/login", { email, password })
+      .post<ILoginResponse>("auth/login", {
+        email,
+        password,
+      })
       .then((response) => {
         return response.data;
       });

@@ -9,13 +9,13 @@ type PropsType = {
 };
 
 const Button: React.FC<PropsType> = React.memo((props: PropsType) => {
-  const { type, buttonStyle, children } = props;
+  const { type, variant, children } = props;
 
   return (
     <button
       className={cn(s.button, {
-        [s.filled]: buttonStyle === "fill",
-        [s.outline]: buttonStyle === "outline",
+        [s.filled]: variant === "fill",
+        [s.outline]: variant === "outline",
       })}
       type={type}
     >

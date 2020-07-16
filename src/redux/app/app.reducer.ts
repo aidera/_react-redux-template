@@ -1,4 +1,7 @@
-import { SET_INITIAL, SET_GLOBAL_ERROR, AppActionsTypes } from "./app.actions";
+import {
+  AppActionsReturnTypes,
+} from "./app.actions";
+import { SET_INITIAL, SET_GLOBAL_ERROR } from "./app.types";
 
 const initialState = {
   initialized: false,
@@ -8,7 +11,7 @@ export type AppInitialStateType = typeof initialState;
 
 const appReducer = (
   state = initialState,
-  action: AppActionsTypes
+  action: AppActionsReturnTypes
 ): AppInitialStateType => {
   switch (action.type) {
     case SET_INITIAL:
@@ -20,7 +23,7 @@ const appReducer = (
     case SET_GLOBAL_ERROR:
       return {
         ...state,
-        globalError: action.error,
+        globalError: action.payload,
       };
 
     default:

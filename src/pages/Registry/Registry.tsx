@@ -6,10 +6,10 @@ import s from "../../layouts/AuthLayout/AuthLayout.module.scss";
 import FieldInput from "../../components/FormsControls/FieldInput";
 import Button from "../../components/Button/Button";
 
-type FormValues = {
+interface FormValues {
   "registry-email": string;
   "registry-password": string;
-};
+}
 
 const Registry: React.FC = React.memo(() => {
   return (

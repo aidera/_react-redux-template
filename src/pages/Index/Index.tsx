@@ -1,51 +1,16 @@
-import React, { useState } from "react";
-import Modal from "../../components/Modal/Modal";
+import React from "react";
+import { IPost } from "../../types/Post";
 
-type PropsType = {};
+interface IProps {
+  posts: IPost[];
+  setIsModalOpen: (status: boolean) => void;
+  loadData: () => void;
+}
 
-const Index: React.FC<PropsType> = React.memo(() => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const openModal = (status: boolean) => {
-    setIsModalOpen(status);
-  };
-
-  const promise = () =>
-    new Promise((resolve, reject) => {
-      const randomNumber = Math.random();
-      setTimeout(() => {
-        if (randomNumber < 0.6) {
-          resolve(null);
-        } else {
-          reject(new Error("Oops"));
-        }
-      }, 2000);
-    });
-  const promise2 = () =>
-    new Promise((resolve, reject) => {
-      const randomNumber = Math.random();
-      setTimeout(() => {
-        if (randomNumber < 0.6) {
-          resolve("OK!");
-        } else {
-          reject(new Error("Oops"));
-        }
-      }, 2000);
-    });
-
+const Index: React.FC<IProps> = React.memo((props: IProps) => {
+  const { posts, setIsModalOpen, loadData } = props;
   return (
     <>
-      <Modal
-        isOpen={isModalOpen}
-        setIsOpen={openModal}
-        text="Custom modal with any text you want"
-        buttonResolveText="Resolve"
-        buttonRejectText="Reject"
-        promiseResolve={promise}
-        promiseResolveError="this is an error in resolve"
-        promiseReject={promise2}
-        promiseRejectError="this is an error in reject"
-      />
-
       <div>
         <h1>Index page</h1>
         <button
@@ -57,6 +22,17 @@ const Index: React.FC<PropsType> = React.memo(() => {
         >
           Open modal
         </button>
+        <div>
+          <h2>Posts</h2>
+          <ul>
+            {posts.map((post) => {
+              return <li key={post.id}>{post.title}</li>;
+            })}
+          </ul>
+          <button type="button" onClick={loadData}>
+            Load Posts
+          </button>
+        </div>
       </div>
     </>
   );

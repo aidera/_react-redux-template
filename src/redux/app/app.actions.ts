@@ -1,24 +1,20 @@
 import { ThunkAction } from "redux-thunk";
 import { AnyAction } from "redux";
+import { SET_GLOBAL_ERROR, SET_INITIAL } from "./app.types";
 
-export const SET_INITIAL = "app/SET_INITIAL";
-export const SET_GLOBAL_ERROR = "app/SET_GLOBAL_ERROR";
+export const setInitial = () => ({ type: SET_INITIAL } as const);
+export type SetInitialReturnType = ReturnType<typeof setInitial>;
 
-type SetInitialType = {
-  type: typeof SET_INITIAL;
-};
+export const setGlobalError = (payload: string) =>
+  ({
+    type: SET_GLOBAL_ERROR,
+    payload,
+  } as const);
+export type SetGlobalErrorReturnType = ReturnType<typeof setGlobalError>;
 
-export const setInitial = (): SetInitialType => ({ type: SET_INITIAL });
-
-type SetGlobalError = {
-  type: typeof SET_GLOBAL_ERROR;
-  error: string;
-};
-
-export const setGlobalError = (error: string): SetGlobalError =>
-  ({ type: SET_GLOBAL_ERROR, error } as const);
-
-export type AppActionsTypes = SetInitialType | SetGlobalError;
+export type AppActionsReturnTypes =
+  | SetInitialReturnType
+  | SetGlobalErrorReturnType;
 
 export const initializeApp = (): ThunkAction<
   Promise<void>,
