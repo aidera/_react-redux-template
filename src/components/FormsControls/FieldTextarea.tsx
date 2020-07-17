@@ -1,31 +1,34 @@
 import cn from "classnames";
-import { useField } from "formik";
-import React, { useRef } from "react";
+import { Field, useField } from "formik";
+import React from "react";
 import s from "./FormControls.module.scss";
 import { errorContainer, fieldIcon, maxLengthCounter } from "./Common";
+import { IconEnum } from "../../types/Form";
 
-type PropsType = {
+interface IProps {
   name: string;
   label?: string;
   maxLength?: number;
   placeholder?: string;
   type?: string;
-  icon?: "email" | "password" | "user" | "search";
+  icon?: IconEnum;
   autoFocus?: boolean;
-};
+}
 
-const FieldTextarea: React.FC<PropsType> = React.memo((props: PropsType) => {
+const FieldTextarea: React.FC<IProps> = React.memo((props: IProps) => {
   const { name, label, maxLength, placeholder, icon, autoFocus } = props;
 
   const [field, { error, touched }] = useField(name);
 
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const textareaElement = document.querySelector(
+    `#${name}`
+  ) as HTMLTextAreaElement;
 
   return (
     <fieldset
       onClick={() => {
-        if (textareaRef.current) {
-          textareaRef.current.focus();
+        if (textareaElement) {
+          textareaElement.focus();
         }
       }}
       className={cn(s.field, s.fieldTextarea, { [s.active]: field.value })}
@@ -33,11 +36,11 @@ const FieldTextarea: React.FC<PropsType> = React.memo((props: PropsType) => {
       {!!label && <label htmlFor={name}>{label}</label>}
 
       <div className={s.container}>
-        <textarea
+        <Field
+          as="textarea"
           name={name}
           id={name}
           rows={1}
-          ref={textareaRef}
           placeholder={placeholder}
           maxLength={maxLength}
           autoFocus={autoFocus}
@@ -46,7 +49,19 @@ const FieldTextarea: React.FC<PropsType> = React.memo((props: PropsType) => {
             [s.withIcon]: icon,
           })}
         />
-        {icon && <div className={s.fieldIcon}>{fieldIcon(icon)}</div>}
+        {icon && (
+          <button
+            type="button"
+            onClick={() => {
+              if (textareaElement) {
+                textareaElement.focus();
+              }
+            }}
+            className={s.fieldIcon}
+          >
+            {fieldIcon(icon)}
+          </button>
+        )}
         {field.value && maxLengthCounter(field.value.length, maxLength)}
       </div>
 

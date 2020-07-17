@@ -1,32 +1,36 @@
 import cn from "classnames";
 import { Field, useField } from "formik";
-import React, { useRef } from "react";
+import React from "react";
 import s from "./FormControls.module.scss";
 import { errorContainer, fieldIcon, maxLengthCounter } from "./Common";
+import { IconEnum } from "../../types/Form";
 
-type PropsType = {
+interface IProps {
   name: string;
   label?: string;
   maxLength?: number;
   placeholder?: string;
   type?: string;
-  icon?: "email" | "password" | "user" | "search";
+  icon?: IconEnum;
   autoFocus?: boolean;
-};
+}
 
-const FieldInput: React.FC<PropsType> = React.memo((props: PropsType) => {
+const FieldInput: React.FC<IProps> = React.memo((props: IProps) => {
   const { name, label, maxLength, placeholder, type, icon, autoFocus } = props;
 
   const [field, { error, touched }] = useField(name);
 
-  const inputRef = useRef<HTMLInputElement>(null);
+  const inputElement = document.querySelector(`#${name}`) as HTMLInputElement;
 
   return (
     <fieldset
-      className={cn(s.field, s.fieldInput, { [s.active]: field.value })}
+      className={cn(s.field, s.fieldInput, {
+        [s.active]: field.value,
+        [s.error]: error && touched,
+      })}
       onClick={() => {
-        if (inputRef.current) {
-          inputRef.current.focus();
+        if (inputElement) {
+          inputElement.focus();
         }
       }}
     >
@@ -46,7 +50,19 @@ const FieldInput: React.FC<PropsType> = React.memo((props: PropsType) => {
             [s.withIcon]: icon,
           })}
         />
-        {icon && <div className={s.fieldIcon}>{fieldIcon(icon)}</div>}
+        {icon && (
+          <button
+            type="button"
+            onClick={() => {
+              if (inputElement) {
+                inputElement.focus();
+              }
+            }}
+            className={s.fieldIcon}
+          >
+            {fieldIcon(icon)}
+          </button>
+        )}
         {field.value && maxLengthCounter(field.value.length, maxLength)}
       </div>
 

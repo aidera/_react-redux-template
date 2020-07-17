@@ -1,11 +1,11 @@
 import React from "react";
 import s from "./Overlay.module.scss";
 
-type PropsType = {
+interface IProps {
   onClick?: () => void;
-};
+}
 
-const Overlay: React.FC<PropsType> = React.memo((props: PropsType) => {
+const Overlay: React.FC<IProps> = React.memo((props: IProps) => {
   const { onClick } = props;
   return <div role="dialog" onClick={onClick} className={s.overlay} />;
 });

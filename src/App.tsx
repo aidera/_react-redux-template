@@ -1,60 +1,26 @@
-import React from "react";
-import { BrowserRouter, withRouter } from "react-router-dom";
-import { connect, Provider } from "react-redux";
-import { compose } from "redux";
-import { setGlobalError, initializeApp } from "./redux/app/app.actions";
-import { getInitialized, getGlobalError } from "./redux/app/app.selectors";
-import store from "./redux/store";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector, connect } from "react-redux";
+import { initializeApp } from "./redux/app/app.actions";
+import { getInitialized } from "./redux/app/app.selectors";
 import "./assets/theme/theme.scss";
 import Preloader from "./components/Preloader/Preloader";
 import Router from "./Router";
 import { AppStateType } from "./redux/root.reducer";
 
-const mapStateToProps = (state: AppStateType) => ({
-  initialized: getInitialized(state),
-  globalError: getGlobalError(state),
+const App: React.FC = React.memo(() => {
+  const dispatch = useDispatch();
+  const initialized = useSelector<AppStateType>((state) =>
+    getInitialized(state)
+  );
+
+  useEffect(() => {
+    if (!initialized) {
+      dispatch(initializeApp());
+    }
+  }, [initialized, dispatch]);
+
+  if (!initialized) return <Preloader />;
+  return <Router isAuth />;
 });
 
-const mapDispatchToProps = {
-  initializeApp,
-  setGlobalError,
-};
-
-type StoreProps = ReturnType<typeof mapStateToProps> &
-  typeof mapDispatchToProps;
-
-type StateProps = {
-  isModalOpen: boolean;
-};
-
-type PropsType = StoreProps;
-
-class App extends React.PureComponent<PropsType, StateProps> {
-  componentDidMount() {
-    const { initializeApp } = this.props;
-    initializeApp();
-  }
-
-  render() {
-    const { initialized } = this.props;
-    if (!initialized) {
-      return <Preloader />;
-    }
-    return <Router isAuth />;
-  }
-}
-
-const AppContainer = compose(
-  withRouter,
-  connect(mapStateToProps, mapDispatchToProps)
-)(App) as React.ComponentType;
-
-const AppContainerWithStore: React.FC = () => (
-  <BrowserRouter>
-    <Provider store={store}>
-      <AppContainer />
-    </Provider>
-  </BrowserRouter>
-);
-
-export default AppContainerWithStore;
+export default connect()(App);

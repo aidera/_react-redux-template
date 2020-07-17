@@ -1,19 +1,17 @@
 import React, { useState } from "react";
 import { Helmet } from "react-helmet";
 import { useDispatch, useSelector } from "react-redux";
-import Index from "./Index";
-import MainLayout from "../../layouts/MainLayout/MainLayout";
-import { getPosts } from "../../redux/post/post.selectors";
-import Modal from "../../components/Modal/Modal";
-import { loadPosts } from "../../redux/post/post.actions";
+import Modal from "../components/Modal/Modal";
+import MainLayout from "../layouts/MainLayout/MainLayout";
+import { getPosts } from "../redux/post/post.selectors";
+import { loadPosts } from "../redux/post/post.actions";
+import Button from "../components/Button/Button";
+import {ColorEnum} from "../types/Theme";
 
-const IndexContainer: React.FC = React.memo(() => {
+const Index: React.FC = React.memo(() => {
   const posts = useSelector(getPosts);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const openModal = (status: boolean) => {
-    setIsModalOpen(status);
-  };
 
   const dispatch = useDispatch();
 
@@ -51,7 +49,7 @@ const IndexContainer: React.FC = React.memo(() => {
       </Helmet>
       <Modal
         isOpen={isModalOpen}
-        setIsOpen={openModal}
+        setIsOpen={setIsModalOpen}
         text="Custom modal with any text you want"
         buttonResolveText="Resolve"
         buttonRejectText="Reject"
@@ -61,14 +59,36 @@ const IndexContainer: React.FC = React.memo(() => {
         promiseRejectError="this is an error in reject"
       />
       <MainLayout>
-        <Index
-          posts={posts}
-          setIsModalOpen={setIsModalOpen}
-          loadData={loadData}
-        />
+        <h1>Index page</h1>
+        <Button
+          type="button"
+          variant="fill"
+          color={ColorEnum.warning}
+          onClick={() => {
+            setIsModalOpen(true);
+          }}
+        >
+          Open modal
+        </Button>
+        <div>
+          <h2>Posts</h2>
+          <ul>
+            {posts.map((post) => {
+              return <li key={post.id}>{post.title}</li>;
+            })}
+          </ul>
+          <Button
+            type="button"
+            variant="fill"
+            color={ColorEnum.success}
+            onClick={loadData}
+          >
+            Load Posts
+          </Button>
+        </div>
       </MainLayout>
     </>
   );
 });
 
-export default IndexContainer;
+export default Index;

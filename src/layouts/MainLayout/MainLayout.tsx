@@ -13,7 +13,7 @@ const MainLayout: React.FC<IProps> = React.memo((props: IProps) => {
   return (
     <div className={s.mainLayout}>
       <Header />
-      {children}
+      <div className="container">{children}</div>
       <Footer />
     </div>
   );

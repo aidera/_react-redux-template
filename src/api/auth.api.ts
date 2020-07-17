@@ -1,6 +1,6 @@
 import instance from "./index";
 
-interface IRegisterResponse {
+interface IRegistryResponse {
   status: number;
   message: string;
   errors?: Array<string>;
@@ -19,9 +19,9 @@ const authApi = {
     name: string,
     email: string,
     password: string
-  ): Promise<IRegisterResponse> {
+  ): Promise<IRegistryResponse> {
     return instance
-      .post<IRegisterResponse>("auth/register", {
+      .post<IRegistryResponse>("auth/registry", {
         name,
         email,
         password,

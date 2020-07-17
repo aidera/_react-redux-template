@@ -1,16 +1,17 @@
-import React, { RefObject } from "react";
-import cn from "classnames";
+import React, { useEffect, useRef, useState } from "react";
 import s from "./Modal.module.scss";
 import Preloader from "../Preloader/Preloader";
 import Overlay from "../Overlay/Overlay";
 import show from "../../assets/utils/animations/show";
 import hide from "../../assets/utils/animations/hide";
+import Button from "../Button/Button";
+import { ColorEnum } from "../../types/Theme";
 
 /* Modal windows that can be without buttons, with 1 resolve/reject button or 2 buttons */
 /* Made with class component because of show-animation in beginning and loading state inside
 (when state in func have changed component rerenders and begin show-animation again) */
 
-type PropsType = {
+interface IProps {
   text?: string | null;
   buttonResolveText?: string;
   buttonRejectText?: string;
@@ -25,259 +26,187 @@ type PropsType = {
   promiseCancelError?: string | null;
   setIsOpen: (status: boolean) => void;
   isOpen: boolean;
-};
+}
 
-type StateType = {
-  text: string | null;
-  buttonResolveText: string;
-  buttonRejectText: string | null;
-  promiseResolveError?: string;
-  promiseRejectError?: string;
-  promiseCancelError?: string;
-  isPromiseResolveError: boolean;
-  isPromiseRejectError: boolean;
-  isPromiseCancelError: boolean;
-  modal: RefObject<HTMLDivElement>;
-  isLoading: boolean;
-  isClosing: boolean;
-};
+const Modal: React.FC<IProps> = React.memo((props: IProps) => {
+  const {
+    text,
+    buttonResolveText,
+    buttonRejectText,
+    callbackResolve,
+    callbackReject,
+    callbackCancel,
+    promiseResolve,
+    promiseReject,
+    promiseCancel,
+    promiseResolveError,
+    promiseRejectError,
+    promiseCancelError,
+    setIsOpen,
+    isOpen,
+  } = props;
 
-class Modal extends React.PureComponent<PropsType, StateType> {
-  constructor(props: PropsType) {
-    super(props);
-    this.state = {
-      text: props.text || "Are you sure?",
-      buttonResolveText: props.buttonResolveText || "Ok",
-      buttonRejectText: props.buttonRejectText || "",
+  const modalRef = useRef<HTMLDivElement>(null);
 
-      promiseResolveError:
-        props.promiseResolveError || "Ooops.. there is an error",
-      promiseRejectError:
-        props.promiseRejectError || "Ooops.. there is an error",
-      promiseCancelError:
-        props.promiseCancelError || "Ooops.. there is an error",
+  const [isPromiseResolveError, setIsPromiseResolveError] = useState(false);
+  const [isPromiseRejectError, setIsPromiseRejectError] = useState(false);
+  const [isPromiseCancelError, setIsPromiseCancelError] = useState(false);
+  const [isOpening, setIsOpening] = useState(true);
+  const [isFetching, setIsFetching] = useState(false);
 
-      isPromiseResolveError: false,
-      isPromiseRejectError: false,
-      isPromiseCancelError: false,
-
-      isClosing: false,
-      isLoading: false,
-
-      modal: React.createRef<HTMLDivElement>(),
-    };
-  }
-
-  componentDidUpdate(prevProps: PropsType): void {
-    const { isOpen } = this.props;
-    const { isClosing, modal } = this.state;
-
-    if (prevProps.isOpen !== isOpen) {
-      if (isOpen && !isClosing) {
-        show(modal.current);
-      }
+  useEffect(() => {
+    if (isOpen && isOpening) {
+      show(modalRef.current);
+      setIsOpening(false);
     }
-  }
+  }, [isOpening, isOpen]);
 
-  cancelModal = (): void => {
-    const { promiseCancel, callbackCancel } = this.props;
+  const closeModal = async () => {
+    if (modalRef !== null) {
+      await hide(modalRef.current, () => {
+        setIsFetching(false);
+        setIsPromiseResolveError(false);
+        setIsPromiseRejectError(false);
+        setIsPromiseCancelError(false);
+        setIsOpen(false);
+        setIsOpening(true);
+      });
+    }
+  };
 
+  const cancelModal = async () => {
     if (promiseCancel) {
-      this.setState(
-        {
-          isLoading: true,
-          isPromiseResolveError: false,
-          isPromiseRejectError: false,
-          isPromiseCancelError: false,
-        },
-        () => {
-          if (callbackCancel) {
-            callbackCancel();
-          }
-          if (promiseCancel) {
-            promiseCancel()
-              .then(() => {
-                this.closeModal();
-              })
-              .catch(() => {
-                this.setState({
-                  isPromiseCancelError: true,
-                  isLoading: false,
-                });
-              });
-          }
-        }
-      );
+      setIsFetching(true);
+      setIsPromiseResolveError(false);
+      setIsPromiseRejectError(false);
+      setIsPromiseCancelError(false);
+      if (callbackCancel) {
+        callbackCancel();
+      }
+      if (promiseCancel) {
+        promiseCancel()
+          .then(() => {
+            closeModal();
+          })
+          .catch(() => {
+            setIsPromiseCancelError(true);
+            setIsFetching(false);
+          });
+      }
     } else {
       if (callbackCancel) {
         callbackCancel();
       }
-      this.closeModal();
+      closeModal();
     }
   };
 
-  resolveModal = (): void => {
-    const { promiseResolve, callbackResolve } = this.props;
-
+  const resolveModal = async () => {
     if (promiseResolve) {
-      this.setState(
-        {
-          isLoading: true,
-          isPromiseResolveError: false,
-          isPromiseRejectError: false,
-          isPromiseCancelError: false,
-        },
-        () => {
-          if (callbackResolve) {
-            callbackResolve();
-          }
-          if (promiseResolve) {
-            promiseResolve()
-              .then(() => {
-                this.closeModal();
-              })
-              .catch(() => {
-                this.setState({
-                  isPromiseResolveError: true,
-                  isLoading: false,
-                });
-              });
-          }
-        }
-      );
+      setIsFetching(true);
+      setIsPromiseResolveError(false);
+      setIsPromiseRejectError(false);
+      setIsPromiseCancelError(false);
+      if (callbackResolve) {
+        callbackResolve();
+      }
+      if (promiseResolve) {
+        promiseResolve()
+          .then(() => {
+            closeModal();
+          })
+          .catch(() => {
+            setIsPromiseResolveError(true);
+            setIsFetching(false);
+          });
+      }
     } else {
       if (callbackResolve) {
         callbackResolve();
       }
-      this.closeModal();
+      closeModal();
     }
   };
 
-  rejectModal = (): void => {
-    const { promiseReject, callbackReject } = this.props;
-
+  const rejectModal = async () => {
     if (promiseReject) {
-      this.setState(
-        {
-          isLoading: true,
-          isPromiseResolveError: false,
-          isPromiseRejectError: false,
-          isPromiseCancelError: false,
-        },
-        () => {
-          if (callbackReject) {
-            callbackReject();
-          }
-          if (promiseReject) {
-            promiseReject()
-              .then(() => {
-                this.closeModal();
-              })
-              .catch(() => {
-                this.setState({
-                  isPromiseRejectError: true,
-                  isLoading: false,
-                });
-              });
-          }
-        }
-      );
+      setIsFetching(true);
+      setIsPromiseResolveError(false);
+      setIsPromiseRejectError(false);
+      setIsPromiseCancelError(false);
+      if (callbackReject) {
+        callbackReject();
+      }
+      if (promiseReject) {
+        promiseReject()
+          .then(() => {
+            closeModal();
+          })
+          .catch(() => {
+            setIsPromiseRejectError(true);
+            setIsFetching(false);
+          });
+      }
     } else {
       if (callbackReject) {
         callbackReject();
       }
-      this.closeModal();
+      closeModal();
     }
   };
 
-  closeModal = (): void => {
-    const { modal } = this.state;
-    const { setIsOpen } = this.props;
+  return (
+    <div ref={modalRef} className={s.modal}>
+      <Overlay onClick={cancelModal} />
+      <div className={s.modal__card}>
+        <span>{text}</span>
 
-    if (modal !== null) {
-      this.setState(
-        {
-          isClosing: true,
-        },
-        () => {
-          hide(modal.current, () => {
-            this.setState({
-              isClosing: false,
-              isLoading: false,
-              isPromiseResolveError: false,
-              isPromiseRejectError: false,
-              isPromiseCancelError: false,
-            });
-            setIsOpen(false);
-          });
-        }
-      );
-    }
-  };
-
-  render(): JSX.Element | null {
-    const { isOpen } = this.props;
-    const {
-      modal,
-      text,
-      isPromiseResolveError,
-      promiseResolveError,
-      isPromiseRejectError,
-      promiseRejectError,
-      isPromiseCancelError,
-      promiseCancelError,
-      isLoading,
-      buttonResolveText,
-      buttonRejectText,
-    } = this.state;
-
-    if (!isOpen) return null;
-
-    return (
-      <div ref={modal} className={s.modal}>
-        <Overlay onClick={this.cancelModal} />
-        <div className={s.modal__card}>
-          <span>{text}</span>
-
-          {isPromiseResolveError && promiseResolveError && (
-            <div className={s.error}>{promiseResolveError}</div>
-          )}
-
-          {isPromiseRejectError && promiseRejectError && (
-            <div className={s.error}>{promiseRejectError}</div>
-          )}
-
-          {isPromiseCancelError && promiseCancelError && (
-            <div className={s.error}>{promiseCancelError}</div>
-          )}
-
-          <div className={s.buttons}>
-            {isLoading && <Preloader />}
-
-            {!!buttonResolveText && !isLoading && (
-              <button
-                type="button"
-                onClick={this.resolveModal}
-                className={cn("button-type-1")}
-              >
-                {buttonResolveText}
-              </button>
-            )}
-
-            {!!buttonRejectText && !isLoading && (
-              <button
-                type="button"
-                onClick={this.rejectModal}
-                className={cn("button-type-2")}
-              >
-                {buttonRejectText}
-              </button>
-            )}
+        {isPromiseResolveError && promiseResolveError && (
+          <div className={s.error}>
+            {promiseResolveError || "Oops... something wrong"}
           </div>
+        )}
+
+        {isPromiseRejectError && promiseRejectError && (
+          <div className={s.error}>
+            {promiseRejectError || "Oops... something wrong"}
+          </div>
+        )}
+
+        {isPromiseCancelError && promiseCancelError && (
+          <div className={s.error}>
+            {promiseCancelError || "Oops... something wrong"}
+          </div>
+        )}
+
+        <div className={s.buttons}>
+          {isFetching && <Preloader />}
+
+          {!!buttonResolveText && !isFetching && (
+            <Button
+              variant="fill"
+              color={ColorEnum.success}
+              type="button"
+              onClick={resolveModal}
+            >
+              {buttonResolveText || "Yes"}
+            </Button>
+          )}
+
+          {!!buttonRejectText && !isFetching && (
+            <Button
+              variant="fill"
+              color={ColorEnum.danger}
+              type="button"
+              onClick={rejectModal}
+            >
+              {buttonRejectText || "No"}
+            </Button>
+          )}
         </div>
       </div>
-    );
-  }
-}
+    </div>
+  );
+});
 
 export default Modal;

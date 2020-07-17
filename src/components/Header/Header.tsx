@@ -10,6 +10,7 @@ const Header: React.FC = React.memo(() => {
       <NavLink to="/post/2">Post 2</NavLink>
       <NavLink to="/post/3">Post 3</NavLink>
       <NavLink to="/login">Login</NavLink>
+      <NavLink to="/registry">Registry</NavLink>
     </header>
   );
 });

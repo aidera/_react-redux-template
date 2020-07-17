@@ -4,12 +4,12 @@ import React from "react";
 import s from "./FormControls.module.scss";
 import { errorContainer } from "./Common";
 
-type PropsType = {
+interface IProps {
   name: string;
   label: string;
-};
+}
 
-const FieldCheckbox: React.FC<PropsType> = React.memo((props: PropsType) => {
+const FieldCheckbox: React.FC<IProps> = React.memo((props: IProps) => {
   const { name, label } = props;
 
   const [field, { error, touched }] = useField(name);
