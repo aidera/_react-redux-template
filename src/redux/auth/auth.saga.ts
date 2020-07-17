@@ -86,25 +86,3 @@ export default function* authSaga(): SagaIterator {
     takeEvery(CHECK_AUTH, checkAuthWorker),
   ]);
 }
-
-/* Thunk example */
-//
-// export const login = (
-//   email: string,
-//   password: string
-// ): ThunkAction<Promise<void>, any, any, AnyAction> => async (dispatch) => {
-//   dispatch(setIsLoading(true));
-//
-//   const response = await authApi.login(email, password);
-//   if (response.status === 200) {
-//     localStorage.setItem(
-//       storageName,
-//       JSON.stringify({ userId: response.userId, token: response.token })
-//     );
-//     dispatch(setIsAuth(true));
-//   } else {
-//     dispatch(setError(response.message));
-//     dispatch(setIsAuth(false));
-//   }
-//   dispatch(setIsLoading(false));
-// };
