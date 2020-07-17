@@ -1,9 +1,11 @@
 import {
   LOGIN,
+  LOGOUT,
   REGISTER,
   SET_ERROR,
   SET_IS_AUTH,
   SET_IS_LOADING,
+  CHECK_AUTH,
 } from "./auth.types";
 
 export const setIsAuth = (payload: boolean) =>
@@ -32,7 +34,7 @@ export const login = (payload: { email: string; password: string }) =>
     type: LOGIN,
     payload,
   } as const);
-export type LoginReturnType = ReturnType<typeof setError>;
+export type LoginReturnType = ReturnType<typeof login>;
 
 export const register = (payload: {
   name: string;
@@ -43,11 +45,25 @@ export const register = (payload: {
     type: REGISTER,
     payload,
   } as const);
-export type RegisterReturnType = ReturnType<typeof setError>;
+export type RegisterReturnType = ReturnType<typeof register>;
+
+export const logout = () =>
+  ({
+    type: LOGOUT,
+  } as const);
+export type LogoutReturnType = ReturnType<typeof logout>;
+
+export const checkAuth = () =>
+  ({
+    type: CHECK_AUTH,
+  } as const);
+export type CheckAuthReturnType = ReturnType<typeof checkAuth>;
 
 export type AuthActionsReturnTypes =
   | SetIsAuthReturnType
   | SetIsLoadingReturnType
   | SetErrorReturnType
   | LoginReturnType
-  | RegisterReturnType;
+  | RegisterReturnType
+  | LogoutReturnType
+  | CheckAuthReturnType;

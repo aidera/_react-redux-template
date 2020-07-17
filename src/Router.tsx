@@ -1,7 +1,7 @@
 import React, { Suspense } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import Preloader from "./components/Preloader/Preloader";
-import ItemContainer from "./pages/Item/ItemContainer";
+import PostContainer from "./pages/Post/PostContainer";
 import IndexContainer from "./pages/Index/IndexContainer";
 import ErrorContainer from "./pages/Error/ErrorContainer";
 import LoginContainer from "./pages/Login/LoginContainer";
@@ -18,7 +18,7 @@ const Router: React.FC<PropsType> = React.memo((props: PropsType) => {
     <Suspense fallback={<Preloader />}>
       {isAuth && (
         <Switch>
-          <Route path="/item/:itemId?" render={() => <ItemContainer />} />
+          <Route path="/post/:postId?" render={() => <PostContainer />} />
 
           <Route path="/login" render={() => <LoginContainer />} />
 

@@ -6,9 +6,9 @@ const Header: React.FC = React.memo(() => {
   return (
     <header className={`${s.header}`}>
       <NavLink to="/">Index</NavLink>
-      <NavLink to="/item/1">Item 1</NavLink>
-      <NavLink to="/item/2">Item 2</NavLink>
-      <NavLink to="/item/3">Item 3</NavLink>
+      <NavLink to="/post/1">Post 1</NavLink>
+      <NavLink to="/post/2">Post 2</NavLink>
+      <NavLink to="/post/3">Post 3</NavLink>
       <NavLink to="/login">Login</NavLink>
     </header>
   );

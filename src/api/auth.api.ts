@@ -15,7 +15,11 @@ export interface ILoginResponse {
 }
 
 const authApi = {
-  register(name: string, email: string, password: string) {
+  register(
+    name: string,
+    email: string,
+    password: string
+  ): Promise<IRegisterResponse> {
     return instance
       .post<IRegisterResponse>("auth/register", {
         name,
@@ -27,7 +31,7 @@ const authApi = {
       });
   },
 
-  login(email: string, password: string) {
+  login(email: string, password: string): Promise<ILoginResponse> {
     return instance
       .post<ILoginResponse>("auth/login", {
         email,

@@ -1,21 +1,21 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { Helmet } from "react-helmet";
-import Item from "./Item";
+import Post from "./Post";
 import MainLayout from "../../layouts/MainLayout/MainLayout";
 
-const IndexContainer: React.FC = React.memo(() => {
-  const { itemId } = useParams();
+const PostContainer: React.FC = React.memo(() => {
+  const { postId } = useParams();
   return (
     <>
       <Helmet>
-        <title>Item {itemId}</title>
+        <title>Post {postId}</title>
       </Helmet>
       <MainLayout>
-        <Item itemId={itemId} />
+        <Post postId={postId} />
       </MainLayout>
     </>
   );
 });
 
-export default IndexContainer;
+export default PostContainer;
