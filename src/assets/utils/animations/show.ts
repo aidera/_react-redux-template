@@ -1,11 +1,12 @@
 import anime from "animejs";
+import themeVariables from "../../theme/variables";
 
 const show = (target: HTMLDivElement | null, cb?: () => void) => {
-  if (target) target.style.display = "block";
+  if (target) target.setAttribute("style", "display:block;");
   anime({
     targets: target,
-    keyframes: [{ opacity: 0 }, { opacity: 1 }],
-    duration: 300,
+    opacity: 1,
+    duration: themeVariables.transition.transition_1,
     easing: "linear",
     loop: false,
     complete: () => {

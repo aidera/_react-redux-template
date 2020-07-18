@@ -1,4 +1,4 @@
-const variables = {
+const themeVariables = {
   breakpoint: {
     xxl: 1400,
     xl: 1200,
@@ -47,6 +47,9 @@ const variables = {
     border_1: "1px solid #1C1C1C",
     border_radius_1: "4px",
   },
+  transition: {
+    transition_1: 250,
+  },
 };
 
-export default variables;
+export default themeVariables;

@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 import s from "./MainLayout.module.scss";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
+import Navbar from "../../components/Navbar/Navbar";
+import { getIsNavbarOpen } from "../../redux/app/app.selectors";
+import { AppStateType } from "../../redux/root.reducer";
+import { setIsNavbarOpen } from "../../redux/app/app.actions";
 
 interface IProps {
   children: React.ReactNode;
@@ -9,10 +15,24 @@ interface IProps {
 
 const MainLayout: React.FC<IProps> = React.memo((props: IProps) => {
   const { children } = props;
+  const location = useLocation();
+
+  const dispatch = useDispatch();
+  const isNavbarOpen = useSelector((state: AppStateType) =>
+    getIsNavbarOpen(state)
+  );
+
+  useEffect(() => {
+    dispatch(setIsNavbarOpen(false));
+  }, [location, dispatch]);
 
   return (
     <div className={s.mainLayout}>
       <Header />
+      <Navbar
+        isOpen={isNavbarOpen}
+        setIsOpen={(status: boolean) => dispatch(setIsNavbarOpen(status))}
+      />
       <div className="container">{children}</div>
       <Footer />
     </div>

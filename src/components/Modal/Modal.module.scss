@@ -1,16 +1,14 @@
 @import "../../assets/theme/variables";
 
 .modal {
-  opacity: 0;
   z-index: 5;
-  display: none;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100% ;
 
-  .modal__card {
+  .modalCard {
     width: 400px;
     max-width: 90%;
     position: fixed;

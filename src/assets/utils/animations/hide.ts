@@ -1,14 +1,15 @@
 import anime from "animejs";
+import themeVariables from "../../theme/variables";
 
 const hide = (target: HTMLDivElement | null, cb?: () => void) => {
   anime({
     targets: target,
-    keyframes: [{ opacity: 1 }, { opacity: 0 }],
-    duration: 300,
+    opacity: 0,
+    duration: themeVariables.transition.transition_1,
     easing: "linear",
     loop: false,
     complete: () => {
-      if (target) target.style.display = "none";
+      if (target) target.setAttribute("style", "display:none;");
       if (cb) cb();
     },
   });

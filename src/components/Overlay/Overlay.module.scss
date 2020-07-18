@@ -1,3 +1,5 @@
+@import "../../assets/theme/variables";
+
 .overlay {
   position: fixed;
   width: 100%;
@@ -8,4 +10,19 @@
   opacity: 0.2;
   z-index: 6;
   cursor: pointer;
+}
+
+.overlayTransitionEnter {
+  opacity: 0;
+}
+.overlayTransitionEnterActive {
+  opacity: 0.2;
+  transition: opacity $transition-1;
+}
+.overlayTransitionExit {
+  opacity: 0.2;
+}
+.overlayTransitionExitActive {
+  opacity: 0;
+  transition: opacity $transition-1;
 }
