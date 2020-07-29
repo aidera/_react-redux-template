@@ -1,6 +1,6 @@
 import React from "react";
 import cn from "classnames";
-import { ColorEnum } from "../../types/Theme"
+import { ColorEnum } from "../../types/Theme";
 import s from "./Button.module.scss";
 
 interface IProps {

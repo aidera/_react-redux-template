@@ -6,7 +6,7 @@ import MainLayout from "../layouts/MainLayout/MainLayout";
 import { getPosts } from "../redux/post/post.selectors";
 import { loadPosts } from "../redux/post/post.actions";
 import Button from "../components/Button/Button";
-import {ColorEnum} from "../types/Theme";
+import { ColorEnum } from "../types/Theme";
 
 const Index: React.FC = React.memo(() => {
   const posts = useSelector(getPosts);

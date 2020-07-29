@@ -1,5 +1,5 @@
 import { AppActionsReturnTypes } from "./app.actions";
-import {SET_INITIAL, SET_IS_NAVBAR_OPEN} from "./app.types";
+import { SET_INITIAL, SET_IS_NAVBAR_OPEN } from "./app.types";
 
 const initialState = {
   initialized: false,
