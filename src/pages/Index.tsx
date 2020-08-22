@@ -6,7 +6,7 @@ import MainLayout from "../layouts/MainLayout/MainLayout";
 import { getPosts } from "../redux/post/post.selectors";
 import { loadPosts } from "../redux/post/post.actions";
 import Button from "../components/Button/Button";
-import { ColorEnum } from "../types/Theme";
+import { ColorEnum } from "../models/Theme";
 
 const Index: React.FC = React.memo(() => {
   const posts = useSelector(getPosts);
@@ -19,45 +19,14 @@ const Index: React.FC = React.memo(() => {
     dispatch(loadPosts());
   };
 
-  const promise = () =>
-    new Promise((resolve, reject) => {
-      const randomNumber = Math.random();
-      setTimeout(() => {
-        if (randomNumber < 0.6) {
-          resolve(null);
-        } else {
-          reject(new Error("Oops"));
-        }
-      }, 2000);
-    });
-  const promise2 = () =>
-    new Promise((resolve, reject) => {
-      const randomNumber = Math.random();
-      setTimeout(() => {
-        if (randomNumber < 0.6) {
-          resolve("OK!");
-        } else {
-          reject(new Error("Oops"));
-        }
-      }, 2000);
-    });
-
   return (
     <>
       <Helmet>
         <title>Index page</title>
       </Helmet>
-      <Modal
-        isOpen={isModalOpen}
-        setIsOpen={setIsModalOpen}
-        text="Custom modal with any text you want"
-        buttonResolveText="Resolve"
-        buttonRejectText="Reject"
-        promiseResolve={promise}
-        promiseResolveError="this is an error in resolve"
-        promiseReject={promise2}
-        promiseRejectError="this is an error in reject"
-      />
+      <Modal isOpen={isModalOpen} setIsOpen={setIsModalOpen}>
+        Modal children
+      </Modal>
       <MainLayout>
         <h1>Index page</h1>
         <Button

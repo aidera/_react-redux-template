@@ -1,6 +1,6 @@
 import { PostActionsReturnTypes } from "./post.actions";
 import { ADD_POST, DELETE_POST, SET_POSTS } from "./post.types";
-import { IPost } from "../../types/Post";
+import { IPost } from "../../models/Post";
 
 const initialState = {
   posts: [

@@ -4,9 +4,8 @@ import { BsPerson } from "react-icons/bs";
 import { Helmet } from "react-helmet";
 import { Formik, Form, FormikProps } from "formik";
 import s from "../layouts/AuthLayout/AuthLayout.module.scss";
-import FieldInput from "../components/FormsControls/FieldInput";
+import FieldInput from "../components/FormsControls/FieldTextInput";
 import Button from "../components/Button/Button";
-import { IconEnum } from "../types/Form";
 import FieldCheckbox from "../components/FormsControls/FieldCheckbox";
 import AuthLayout from "../layouts/AuthLayout/AuthLayout";
 
@@ -52,13 +51,13 @@ const Login: React.FC = React.memo(() => {
                 type="email"
                 label="Email"
                 autoFocus
-                icon={IconEnum.email}
+                icon="email"
               />
               <FieldInput
                 name="loginPassword"
                 type="password"
                 label="Password"
-                icon={IconEnum.password}
+                icon="password"
               />
               <FieldCheckbox name="loginRememberMe" label="Remember me" />
               <Button type="submit" variant="fill">

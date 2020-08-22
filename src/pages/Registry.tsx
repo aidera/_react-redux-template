@@ -4,9 +4,8 @@ import { BsPerson } from "react-icons/bs";
 import { Helmet } from "react-helmet";
 import { Formik, FormikProps } from "formik";
 import s from "../layouts/AuthLayout/AuthLayout.module.scss";
-import FieldInput from "../components/FormsControls/FieldInput";
+import FieldInput from "../components/FormsControls/FieldTextInput";
 import Button from "../components/Button/Button";
-import { IconEnum } from "../types/Form";
 import AuthLayout from "../layouts/AuthLayout/AuthLayout";
 
 interface IRegistryForm {
@@ -49,19 +48,19 @@ const Registry: React.FC = React.memo(() => {
                 label="Full Name"
                 autoFocus
                 maxLength={30}
-                icon={IconEnum.user}
+                icon="user"
               />
               <FieldInput
                 name="registryEmail"
                 type="email"
                 label="Email"
-                icon={IconEnum.email}
+                icon="email"
               />
               <FieldInput
                 name="registryPassword"
                 type="password"
                 label="Password"
-                icon={IconEnum.password}
+                icon="password"
               />
               <Button type="submit" variant="fill">
                 <BsPerson /> Submit

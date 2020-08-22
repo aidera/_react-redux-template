@@ -1,6 +1,6 @@
 import React from "react";
 import cn from "classnames";
-import { ColorEnum } from "../../types/Theme";
+import { ColorEnum } from "../../models/Theme";
 import s from "./Button.module.scss";
 
 interface IProps {
@@ -25,7 +25,7 @@ const Button: React.FC<IProps> = React.memo((props: IProps) => {
         [s.warning]: color === ColorEnum.warning,
         [s.danger]: color === ColorEnum.danger,
       })}
-      type={type}
+      type={type || "button"}
     >
       {children}
     </button>

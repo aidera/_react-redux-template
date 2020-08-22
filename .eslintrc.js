@@ -40,6 +40,7 @@ module.exports = {
         "jsx-a11y/no-autofocus": "off",
         "jsx-a11y/click-events-have-key-events": "off",
         "jsx-a11y/no-noninteractive-element-interactions": "off",
-        "import/prefer-default-export": "off"
+        "import/prefer-default-export": "off",
+        "react/button-has-type" : "off",
     },
 };

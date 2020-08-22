@@ -1,5 +1,5 @@
 import instance from "./index";
-import { IPost } from "../types/Post";
+import { IPost } from "../models/Post";
 
 const postsApi = {
   getPosts(): Promise<Array<IPost>> {

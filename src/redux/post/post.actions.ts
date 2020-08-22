@@ -1,5 +1,5 @@
 import { ADD_POST, DELETE_POST, LOAD_POSTS, SET_POSTS } from "./post.types";
-import { IPost } from "../../types/Post";
+import { IPost } from "../../models/Post";
 
 export const addPost = (payload: IPost) =>
   ({

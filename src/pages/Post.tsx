@@ -1,10 +1,10 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 import { useParams } from "react-router-dom";
-import MainLayout from "../layouts/MainLayout/MainLayout";
 import { useDispatch } from "react-redux";
+import MainLayout from "../layouts/MainLayout/MainLayout";
 import { addPost, deletePost } from "../redux/post/post.actions";
-import { ColorEnum } from "../types/Theme";
+import { ColorEnum } from "../models/Theme";
 import Button from "../components/Button/Button";
 
 const Post: React.FC = React.memo(() => {

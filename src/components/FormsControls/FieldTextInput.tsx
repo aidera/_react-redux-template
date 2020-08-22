@@ -3,7 +3,6 @@ import { Field, useField } from "formik";
 import React from "react";
 import s from "./FormControls.module.scss";
 import { errorContainer, fieldIcon, maxLengthCounter } from "./Common";
-import { IconEnum } from "../../types/Form";
 
 interface IProps {
   name: string;
@@ -11,11 +10,11 @@ interface IProps {
   maxLength?: number;
   placeholder?: string;
   type?: string;
-  icon?: IconEnum;
+  icon?: "email" | "password" | "user" | "search";
   autoFocus?: boolean;
 }
 
-const FieldInput: React.FC<IProps> = React.memo((props: IProps) => {
+const FieldTextInput: React.FC<IProps> = React.memo((props: IProps) => {
   const { name, label, maxLength, placeholder, type, icon, autoFocus } = props;
 
   const [field, { error, touched }] = useField(name);
@@ -71,4 +70,4 @@ const FieldInput: React.FC<IProps> = React.memo((props: IProps) => {
   );
 });
 
-export default FieldInput;
+export default FieldTextInput;
